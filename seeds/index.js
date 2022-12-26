@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 const cities = require("./cities");
 const { places, descriptors } = require("./seedHelpers");
 const Campground = require("../models/campground");
+require("dotenv").config();
 
+// const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/yelp-camp";
 mongoose
-    .connect("mongodb://127.0.0.1:27017/yelp-camp")
+    .connect(process.env.DB_URL)
     .then((c) => {
         console.log("CONNECTION TO DATABASE!");
     })
@@ -21,7 +23,7 @@ const seedDB = async () => {
         const ramdom1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
-            author: "639ad418fcd3a21dd0705df3",
+            author: "63a9af9f855b49215c66e224",
             location: `${cities[ramdom1000].city}, ${cities[ramdom1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             description:
